@@ -1,0 +1,35 @@
+<div>
+        <div *ngIf="UserInfo">
+            <mat-card class="userinfo" matRipple 
+             [matMenuTriggerFor]="menu">
+                <mat-card-header>
+                    <img mat-card-avatar [src]="UserInfo.photoURL" width="50" height="50">
+                    <mat-card-subtitle class="userinfo-text">{{UserInfo.displayName}}</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+        </div>
+  
+
+    <div>
+        <button mat-raised-button>
+            <mat-icon>
+                touch_app
+            </mat-icon>
+            Hoop In
+        </button>
+    </div>
+
+
+  
+  
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="login()">
+        <mat-icon >dialpad</mat-icon>
+        <span>Change Account</span>
+      </button>
+      <button mat-menu-item (click)="loginAsGuest()">
+        <mat-icon>accessibility_new</mat-icon>
+        <span>Guest</span>
+      </button>
+  </mat-menu>
+</div>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "stream-it-d368f": {
+      "hosting": {
+        "stream-it": [
+          "stream-it-d368f"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "stream-it-d368f"
+  }
+}
