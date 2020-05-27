@@ -1,0 +1,1 @@
+ng build --prod && echo Done Build Prod&& firebase deploy --only hosting
