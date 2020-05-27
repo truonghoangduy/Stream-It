@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path:"room",
     component:StreamComponent
+  },
+  {
+    path:"room/:id",
+    component:StreamComponent
   }
 ];
 

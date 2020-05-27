@@ -18,6 +18,9 @@ import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import { StreamComponent } from './component/stream/stream.component';
 import {MatRippleModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
+import {FormsModule} from '@angular/forms'
+
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import {MatRippleModule} from '@angular/material/core';
     MatMenuModule,
     MatCardModule,
     MatButtonModule,
-    MatRippleModule
+    MatRippleModule,
+    MatInputModule,
+    FormsModule
     // NgModule
   ],
   providers: [],

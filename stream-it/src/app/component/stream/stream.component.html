@@ -1,4 +1,35 @@
 <p>stream works!</p>
+<div id="videos">
+    <video #focusVideo autoplay="true"></video>
+    <button mat-raised-button (click)="createRoom()">Create Room</button>
 
+    <button mat-raised-button (click)="getUserMedia()">Open Camera</button>
+
+    <button mat-raised-button (click)="stopUserMedia()">Stop Camera</button>
+    <mat-card>
+        <mat-form-field class="example-form-field">
+            <input matInput type="text" placeholder="RoomID" [(ngModel)]="value">
+            <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <button mat-button >
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-card>
+    <mat-card>Section For Other Video
+        <div *ngIf="streaming.roomSetUpObserver.asObservable() |async">
+            Hmmm Has Client
+            <div *ngFor="let video of streaming.otherUserMedia">
+                <video [srcObject]=video>
+
+                </video>
+            </div>
+
+        </div>
+    </mat-card>
+
+    <!-- <video id="remoteVideo" autoplay playsinline></video> -->
+</div>
 <!-- <input [(ngModel)]="roomURL" (keydown)="checkURL()"> -->
-<button (click)="createRoom()"></button>
