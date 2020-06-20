@@ -1,0 +1,21 @@
+POST http://localhost:9000/removeRoom HTTP/1.1
+Content-Type: application/json
+
+{
+    "path":"rooms/TQDyJi35choVxFbssctz",
+    "host":"wechicken147@gmail.com"
+}
+
+###
+
+POST http://localhost:9000/createRoom HTTP/1.1
+Content-Type: application/json
+
+{
+    "host":"wechicken147@gmail.com",
+    "roomConfig":true
+}
+
+###
+
+GET  http://localhost:9000/test HTTP/1.1
