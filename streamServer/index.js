@@ -141,11 +141,11 @@ app.get('/', (req, res, next) => res.send('Hello world!'));
 const customGenerationFunction = () => (Math.random().toString(36) + '0000000000000000000').substr(2, 16);
 const http = require('http');
 
-const credentail = 
-  {
-    key: fs.readFileSync('./domain.key'),
-    cert: fs.readFileSync('./domain.crt')
-  };
+// const credentail = 
+//   {
+//     key: fs.readFileSync('./domain.key'),
+//     cert: fs.readFileSync('./domain.crt')
+//   };
 
 const server = http.createServer(
 app);
