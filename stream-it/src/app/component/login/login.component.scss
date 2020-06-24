@@ -1,0 +1,82 @@
+.mainContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vw;
+    min-height: 100vh;
+    // background-color: lightblue;
+}
+
+.innerBox{
+    // background-color:red;
+    min-width: 70vw;
+    min-height: 75vh;
+}
+.login{
+    // background-color: ;
+}
+@media screen and  (max-width: 700px){
+    .leftimg{
+        display: none;
+    }
+    .innerBox{
+        text-align: center;
+    }
+}
+
+.emailPassWordBox{
+    margin-left: 4vw;
+    margin-right: 4vw;
+    margin-top: 4vw;
+    margin-bottom: 1vw;
+}
+
+// @media screen and  (min-width : 400px){
+//     .leftimg{
+//         float: left;
+//         // min-width: ;
+//         width: 34vw;
+//         height: 78vh;
+//         // min-height: 75vh;
+//     }
+// }
+
+.leftimg{
+    float: left;
+    // min-width: ;
+    width: 34vw;
+    height: 78vh;
+    // min-height: 75vh;
+}
+
+.rightBackground{
+    position: absolute;
+    width: 3vw;
+    height: 3vw;
+    background-color: black;
+}
+
+.rightcard{
+    float: right;
+    min-width: 35vw;
+    height: 75vh;
+    margin: 20px;
+}
+.example-full-width {
+    width: 100%;
+}
+
+.butoonEmailPass{
+    min-width: 10vw;
+    // height: 3vh;
+}
+
+.appname{
+    font-family: 'Lemon';
+    font-weight: bold;
+    font-size: calc(50px + 6 * ((100vw - 320px) / 200));
+
+}
+
+
+

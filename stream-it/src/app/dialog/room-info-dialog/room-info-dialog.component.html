@@ -1,0 +1,11 @@
+<h1 style="text-align: center;" mat-dialog-title>{{componentTitle}}</h1>
+<div mat-dialog-content>
+  <mat-form-field class="inpuField">
+    <mat-label></mat-label>
+    <input matInput [(ngModel)]="data.mesages">
+  </mat-form-field>
+</div>
+<div>
+  <button class="btn-signup" (click)="onNoClick()">SUBMIT</button>
+  <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+</div>

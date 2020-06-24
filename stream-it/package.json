@@ -12,11 +12,12 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.0.0",
-    "@angular/cdk": "^9.2.3",
+    "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.0.0",
     "@angular/compiler": "~9.0.0",
     "@angular/core": "~9.0.0",
     "@angular/fire": "^6.0.0-rc.2",
+    "@angular/flex-layout": "^10.0.0-beta.32",
     "@angular/forms": "~9.0.0",
     "@angular/material": "^9.2.3",
     "@angular/platform-browser": "~9.0.0",
@@ -25,6 +26,7 @@
     "firebase": "7.14.2",
     "peerjs": "^1.2.0",
     "rxjs": "~6.5.4",
+    "sweetalert2": "^9.15.1",
     "tslib": "^1.10.0",
     "webrtc-adapter": "^7.6.0",
     "zone.js": "~0.10.2"

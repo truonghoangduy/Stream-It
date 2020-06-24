@@ -1,35 +1,123 @@
-<div>
-        <div *ngIf="UserInfo">
-            <mat-card class="userinfo" matRipple 
-             [matMenuTriggerFor]="menu">
-                <mat-card-header>
-                    <img mat-card-avatar [src]="UserInfo.photoURL" width="50" height="50">
-                    <mat-card-subtitle class="userinfo-text">{{UserInfo.displayName}}</mat-card-subtitle>
-                </mat-card-header>
-            </mat-card>
-        </div>
-  
+<div class="outterContaner">
+  <mat-card class="innerContainer">
+    <div class="leftcell">
+      <mat-form-field>
+        <mat-label>Find Option</mat-label>
+        <mat-select [(value)]="selectedFilterOption">
+          <mat-option>None</mat-option>
+          <mat-option value="email">By Email</mat-option>
+          <mat-option value="roomName">Room Name</mat-option>
+          <mat-option value="allpast">Avavabile</mat-option>
+          <mat-option value="lock">Require Accepted</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Find Room</mat-label>
+        <br>
+        <input matInput [(ngModel)]="findkeyword"
+          (keyup)="this.findRoomServices.getFiltteredRoom(this.selectedFilterOption,this.findkeyword)">
+      </mat-form-field>
+      <div class="findresult">
+        <div [ngSwitch]="selectedFilterOption">
+          <div *ngSwitchCase="">
+            <mat-selection-list style="overflow: scroll;" [multiple]="false">
+              <mat-list-option *ngFor="let item of this.findRoomServices.listOfRoom let rowcount = index"
+                [mat-menu-trigger-for]="roomGoTo" (click)="roomInfoPassDownToMatMenu(item)">
+                {{rowcount+1}} :  {{item.roomName}}
+                <span style="float: right;"> Host by {{item.host}} </span>
+              </mat-list-option>
+            </mat-selection-list>
+          </div>
+          <div *ngSwitchDefault>
+            <mat-list style="overflow: scroll;">
+              <mat-selection-list style="overflow: scroll;" [multiple]="false">
+                <mat-list-option *ngFor="let item of this.findRoomServices.listOfFilteredRoom let rowcount = index"
+                  [mat-menu-trigger-for]="roomGoTo" (click)="roomInfoPassDownToMatMenu(item)">
+                  {{rowcount}} :
+                  {{item.roomName}}
 
-    <div>
-        <button mat-raised-button>
-            <mat-icon>
-                touch_app
-            </mat-icon>
-            Hoop In
-        </button>
+                </mat-list-option>
+              </mat-selection-list>
+            </mat-list>
+
+          </div>
+        </div>
+      </div>
     </div>
 
+    <div class="rightcell">
+      <div class="soglan">Are You Ready To Explore</div>
+      <div>
+        <button mat-raised-button [mat-menu-trigger-for]="menuRoomConfig" class="btn-createRoom">
+          <mat-icon>
+            add_to_queue
+          </mat-icon>
+          CREATE ROOM
+        </button>
+        <button mat-raised-button (click)="openDialog('url')" class="btn-joinRoom">
+          <mat-icon>
+            search
+          </mat-icon>
+          JOIN ROOM
+        </button>
+      </div>
+      <img src="../../../assets/raincoat.png" class="checkinEmoji">
 
-  
-  
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="login()">
-        <mat-icon >dialpad</mat-icon>
-        <span>Change Account</span>
-      </button>
-      <button mat-menu-item (click)="loginAsGuest()">
-        <mat-icon>accessibility_new</mat-icon>
-        <span>Guest</span>
-      </button>
+
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="login()">
+          <mat-icon>dialpad</mat-icon>
+          <span>Change Account</span>
+        </button>
+        <button mat-menu-item (click)="loginAsGuest()">
+          <mat-icon>accessibility_new</mat-icon>
+          <span>Guest</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-card>
+
+  <mat-menu #roomGoTo="matMenu" [yPosition]='"below"' [xPosition]="'after'">
+    <button mat-menu-item (click)="this.navigateToRoomWithMatMenu()">
+      <mat-icon>launch</mat-icon>
+      <span>Open Room</span>
+    </button>
+    <button mat-menu-item [mat-menu-trigger-for]="roomGoToInfo">
+      <mat-icon>info</mat-icon>
+      <span>Room info</span>
+    </button>
+
   </mat-menu>
+
+  <mat-menu #roomGoToInfo="matMenu">
+    <ng-template matMenuContent>
+      <button mat-menu-item *ngFor="let item of this.roomInfoForMatMenu">{{item}}</button>
+    </ng-template>
+
+  </mat-menu>
+  <mat-menu #menuRoomConfig="matMenu">
+    <button mat-menu-item (click)="roomConfig(true)">
+      <mat-icon>dialpad</mat-icon>
+      <span>PASS All GUEST</span>
+    </button>
+    <button mat-menu-item (click)="roomConfig(false)">
+      <mat-icon>accessibility_new</mat-icon>
+      <span>ONLY CRETAIN</span>
+    </button>
+  </mat-menu>
+  <!-- <div *ngIf="UserInfo;else notlogin">
+    <mat-card class="userinfo" matRipple [matMenuTriggerFor]="menu">
+      <mat-card-header>
+        <img mat-card-avatar [src]="UserInfo.photoURL" width="50" height="50">
+        <mat-card-subtitle class="userinfo-text">{{UserInfo.displayName}}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  <ng-template #notlogin>
+    <img src="../../../assets/btn_google.png" alt="" (click)="login()">
+
+  </ng-template> -->
+
+
 </div>

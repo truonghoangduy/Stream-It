@@ -5,7 +5,13 @@
 // #account_desprition{
 //     float: right;
 // }
+.radio_button_checked{
+	color: greenyellow;
 
+}
+.radio_button_unchecked{
+	color:tomato;
+}
 .userinfo-text{
     font-size: 0.9rem;
 }
@@ -14,3 +20,97 @@
     height: 5vh;
 }
 
+.soglan{
+	font-family: "Lemon";
+	position: relative;
+	font-size: calc(50px + 6 * ((50vw - 420px) / 400));
+	margin-bottom: 20px;
+	line-height: 0.8;
+
+}
+.btn-createRoom{
+	background-color: #4CAF50;
+	color: white;
+	padding: 16px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	opacity: 0.9;
+	font-size: larger;
+	font-weight: 900;
+}
+.btn-joinRoom{
+	background-color: #a6dcef;
+	color: white;
+	padding: 16px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	opacity: 0.9;
+	font-size: larger;
+	font-weight: 900;
+}
+
+//** variables
+$background: #f5f6fa;
+$text: #9c9c9c;
+$input-bg-color: #fff;
+$input-text-color: #a3a3a3;
+$button-bg-color: #7f8ff4;
+$button-text-color: #fff;
+
+.outterContaner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+.innerContainer{
+	min-width: 70vw;
+    min-height: 60vh;
+	display: flex;
+	justify-content: space-between;
+}
+.findresult{
+	height: 80%;
+	overflow: scroll;
+
+}
+.leftcell{
+
+	height: 100%;
+	width: 50%;
+	margin: 20px;
+	// float: left;
+	// min-width: 35vw;
+
+}
+
+.checkinEmoji{
+	// position: absolute;
+	// left: -3vw;
+	// width: 10vw;
+	align-self:flex-end;
+	height: 12vw;
+}
+.rightcell{
+	display: flex;
+	flex-direction:column;
+	margin: 20px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	width: 50%;
+	// float: right;
+	// display: flex;
+	// justify-content: center;
+	// justify-items: center;
+	text-align: center;
+	// background-color: rebeccapurple;
+	float: right;
+	// min-width: 35vw;
+	// min-height: 100%;
+}

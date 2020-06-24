@@ -1,0 +1,24 @@
+
+.form-control{
+    width: 100%;
+}
+
+.formtitle{
+    text-align: center;
+    font-size: calc(20px + 6 * ((100vw - 320px) / 200));
+
+     font-family: 'Lemon'; 
+}
+.fontContainer{
+    margin: 20px;
+}
+.btn-signup{
+        background-color: #4CAF50;
+        color: white;
+        padding: 16px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+        opacity: 0.9;
+}

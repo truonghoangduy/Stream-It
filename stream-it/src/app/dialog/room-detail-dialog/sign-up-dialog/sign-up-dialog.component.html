@@ -1,0 +1,82 @@
+<h1 class="formtitle"mat-dialog-title>
+    Please enter your credentail 🌁
+</h1>
+<div mat-dialog-content>
+    <div class="fontContainer">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+               
+                <mat-form-field class="form-control">
+                    <label>First Name</label>
+                    <input matInput type="text" formControlName="firstName"  [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <mat-error *ngIf="f.firstName.errors.required">First Name is required</mat-error>
+                    </div>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-control">
+                    <label>Last Name</label>
+                    <input matInput type="text" formControlName="lastName"  [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                    <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                        <mat-error *ngIf="f.lastName.errors.required">Last Name is required</mat-error>
+                    </div>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-control">
+                    <label>Email</label>
+                    <input matInput type="text" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                        <mat-error *ngIf="f.email.errors.required">Email is required</mat-error>
+                        <mat-error *ngIf="f.email.errors.email">Email must be a valid email address</mat-error>
+                    </div>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-control">
+                    <label>Password</label>
+                    <input matInput type="password" formControlName="password"  [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                        <mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+                        <mat-error *ngIf="f.password.errors.minlength">Password must be at least 6 characters</mat-error>
+                    </div>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="form-control">
+                    <label>Confirm Password</label>
+                    <input matInput type="password" formControlName="confirmPassword"[ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                        <mat-error *ngIf="f.confirmPassword.errors.required">Confirm Password is required</mat-error>
+                        <mat-error *ngIf="f.confirmPassword.errors.mustMatch">Passwords must match</mat-error>
+                    </div>
+                </mat-form-field>
+                <br>
+            <div style="text-align: center;">
+                <button type="submit" mat-raised-button class="btn-signup">Register</button>
+            </div>
+        </form>
+
+
+
+    </div>
+
+</div>
+
+
+            <!-- <form >
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput [formControl]="emailCheck"  [(ngModel)]="email" placeholder="Ex. pat@example.com">
+                </mat-form-field>
+                <br>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input type="password" [formControl]="passwordCheck" [(ngModel)]="password" matInput placeholder="">
+                </mat-form-field>
+                <div style="display: flex;justify-content: center;justify-items: start;">
+
+                    <span style="min-width: 5vw;"></span>
+                    <mat-dialog-actions>
+                        <button type="submit" (click)="onConfirmClick()" mat-raised-button class="butoonEmailPass">
+                            Sign up
+                        </button>
+                    </mat-dialog-actions>
+                </div>
+            </form> -->

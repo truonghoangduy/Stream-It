@@ -17,14 +17,28 @@ let localStream = null;
 let remoteStream = null;
 let roomDialog = null;
 let roomId = null;
+var firebaseConfig = {
+  apiKey: "AIzaSyBZ6lFT0h3OTF4Ce4TJXDsOWImZ45g6Tf8",
+  authDomain: "stream-it-test-ac153.firebaseapp.com",
+  databaseURL: "https://stream-it-test-ac153.firebaseio.com",
+  projectId: "stream-it-test-ac153",
+  storageBucket: "stream-it-test-ac153.appspot.com",
+  messagingSenderId: "487136729566",
+  appId: "1:487136729566:web:5aac6571a667e6edcf654f"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 function init() {
+
   document.querySelector('#cameraBtn').addEventListener('click', openUserMedia);
   document.querySelector('#hangupBtn').addEventListener('click', hangUp);
   document.querySelector('#createBtn').addEventListener('click', createRoom);
   document.querySelector('#joinBtn').addEventListener('click', joinRoom);
   roomDialog = new mdc.dialog.MDCDialog(document.querySelector('#room-dialog'));
+
 }
+
 
 async function createRoom() {
   document.querySelector('#createBtn').disabled = true;

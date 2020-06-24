@@ -1,8 +1,61 @@
 video {
     background: black;
-    width: 640px;
-    height: 100%;
-    display: block;
+    // width: 500px;
+    // max-width: 40vw;
+    min-width: 20vw;
+    min-height: 10vw;
+    // height: 100%;
+    // display: block;
     margin: 1em;
     
 }
+.example-fill-remaining-space {
+  /* This fills the remaining space, by using flexbox. 
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
+}
+.siderLeft{
+  min-width: 20vw;
+  max-width: 25vw;
+  // width: 30vw;
+}
+.streamContainer{
+  overflow: scroll;
+ min-width: 100vw;
+ min-height: 100vh;
+
+ overflow: hidden;
+}
+.bottomCard{
+  min-height: 5vh;
+  min-width: 100vw;
+}
+.mainContainer{
+  min-height: 83vh;
+  min-width: 100vw;
+}
+.grid-container {
+    display: grid;
+    grid-auto-columns: 1fr;
+    grid-template-rows: 40% auto 10%;
+    // grid-column: 15vw;
+    // grid-gap: 50px;
+    // grid-template-columns: auto;
+    // grid-column: 3;
+  }
+  
+  .grid-container--fill {
+    /* grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    // grid-template-columns: auto auto auto auto;
+  }
+  .grid-element:hover {
+    background-color: aliceblue;
+  }
+  .grid-element {
+    /* background-color: deepPink; */
+    padding: 10px;
+    color: #fff;
+    // background-color:royalblue;
+    border: 1px solid #fff;
+  }
