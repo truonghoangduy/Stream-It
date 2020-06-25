@@ -41,6 +41,14 @@ export interface PeerMediaStream {
 })
 export class StreamingService implements StreamingServiceInterface {
   videoConfig = { video: true, audio: false };
+constraints = {
+        'mandatory': {
+            'OfferToReceiveAudio': true,
+            'OfferToReceiveVideo': true
+        },
+        offerToReceiveAudio: 1,
+        offerToReceiveVideo: 1,
+    }
   UserInfo: User;
   remoteStream: MediaStream
   localStream: MediaStream
@@ -102,12 +110,20 @@ export class StreamingService implements StreamingServiceInterface {
       return false;
     }
   }
-  async startPeerJS(myUUID: string) {
-    await this.invokegetUserMedia();
+  async startPeerJS(myUUID?: string) {
+    console.log(myUUID)
+    if (myUUID == "2") {
+      console.log("Call Camera")
+      await this.invokegetUserMedia();
+    }
+    if (myUUID == "1") {
+      await this.getDisplayMedia();
+    }
     this.peer = new Peer(null, {
-      debug: 2,
+      debug:3,
       // secure:true,
-      // host: '10.104.3.199', port: 9000, path: '/peerjs',
+      // key:"helloworld",
+      host: '192.168.1.12', port: 9000, path: '/myapp',
     });
     console.log(this.peer);
     // myUUID,
@@ -131,6 +147,9 @@ export class StreamingService implements StreamingServiceInterface {
       }
       console.log(this.candidateList);
       this.candidateList[this.peer.id] = this.UserInfo.email
+      await this.afs.collection("indexing").doc(this.peer.id).set({
+        "roomRef":this.roomRef.path
+      })
       await this.roomRef.update({ "candidates": this.candidateList });
       console.log(this.peer.id);
       this.fullMeshCalling(); // When to call this funtion ( after update or before)
@@ -224,12 +243,38 @@ export class StreamingService implements StreamingServiceInterface {
 
   }
 
+  toogleCamera(){
+    this.myVideoMediaStream = new window.AudioContext().createMediaStreamDestination().stream;
+  }
+
   notAgreeDevicesStream():MediaStream{
     return new window.AudioContext().createMediaStreamDestination().stream;
   }
 
+  async startCapture(displayMediaOptions) {
+    let captureStream = null;
+  
+    try {
+    // @ts-ignore
+    captureStream = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions);
+    } catch(err) {
+      console.error("Error: " + err);
+    }
+    return captureStream;
+  }
+  screenCapture:MediaStream
+
+  async getDisplayMedia(){
+    this.myVideoMediaStream = await this.startCapture({
+      video: {
+        cursor: "always"
+      },
+      audio: false
+    });
+  }
   async invokegetUserMedia() {
     try {
+      // let displayApdater = navigator.mediaDevices as any;
       this.myVideoMediaStream = await navigator.mediaDevices.getUserMedia(this.videoConfig)
     } catch (error) { //MediaStreamError
       // Implement Get Media for disallow camera or Computer not found Devives
@@ -285,7 +330,9 @@ export class StreamingService implements StreamingServiceInterface {
 
   callPeer(stream: MediaStream, peerUUID: string) { // Passing your stream to other
     console.log(" Call : " + peerUUID);
-    let call = this.peer.call(peerUUID, stream);
+    let call = this.peer.call(peerUUID, stream,{
+      // metadata:this.constraints
+    });
     call.on('stream', (remoteStream) => {
       console.log("Got Remote Stream I CALL YOU");
       // this.otherVideoElement = new MediaStream(remoteStream);
