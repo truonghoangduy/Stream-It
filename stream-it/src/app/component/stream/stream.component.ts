@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 // declare var Peer: any;
 import { AngularFireAuth } from '@angular/fire/auth';
 import Peer from 'peerjs'
-import { RoomViewMode } from 'src/app/typepo/roomConfig';
+import { RoomViewMode, ButtonType } from 'src/app/typepo/roomConfig';
 import { Subject } from 'rxjs';
 // import {Component, Inject} from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -17,10 +17,14 @@ import Swal from 'sweetalert2';
 })
 
 export class StreamComponent implements OnInit, AfterViewInit, OnDestroy {
+  // Button UI switch
   RoomViewMode = RoomViewMode;
+  ButtonType = ButtonType;
+  iconColor = ["cool", "cool"];
+
+  // Video Call Stuff
   videoConfig = { video: true, audio: false };
-  roomVeiwMode: RoomViewMode
-  // @Input() 
+
   roomURL: String;
   myColor: String;
   value: String;
@@ -38,14 +42,17 @@ export class StreamComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('otherVideo', { static: true }) otherVideoElement: ElementRef;
 
   constructor(public dialog: MatDialog,
-    public streaming: StreamingService, private route: ActivatedRoute, private auth: AngularFireAuth, private router: Router) {
+    public streaming: StreamingService,
+    private route: ActivatedRoute,
+    private auth: AngularFireAuth,
+    private router: Router) {
     this.route.paramMap.subscribe(async (params) => {
       // http://localhost:4200/room/12345678 
       // ipconfig getifaddr en0
-      this.roomCheck.subscribe(async (flag)=>{
+      this.roomCheck.subscribe(async (flag) => {
         console.log("Call Room check");
         if (flag) {
-         await this.roomNotFound();
+          await this.roomNotFound();
         }
       })
       // Params map -> quick room access
@@ -54,29 +61,40 @@ export class StreamComponent implements OnInit, AfterViewInit, OnDestroy {
         console.log(`Room ID : ${id}`)
         if (this.streaming.roomRef == undefined || this.streaming.roomRef == null) {
           if (await this.streaming.getRoomRef(id)) {
-            // this.connected();
-            
-          } else {
-            console.log("Room not found") 
-            await Swal.fire({
-              title: "Room not found",
-              icon: "warning",
-            }).then(async (result) => {
-              if (result.isDismissed || result.isConfirmed) {
-                console.log("Dissmised NO ROOM FOUND");
-                this.roomCheck.next(true);
+            // this.connected();// If room is avable start connection to other peer
+            // Condition 1 : If you the only one you sub to the document change for the frist time = > full mesh
+            this.streaming.roomRef.onSnapshot(async (data) => {
+              if (data.exists) {
+                console.log("Room Still Fine")
+              } else {
+                console.log("Room is fucked");
+                await this.roomNotFoundRollBack();
               }
             })
+
+          } else {
+            await this.roomNotFoundRollBack();
           }
         }
-        // this.streaming.joinRoom(id)
-        // Join Room Request
       }
 
 
     }
     )
 
+  }
+
+  async roomNotFoundRollBack() {
+    console.log("Room not found")
+    await Swal.fire({
+      title: "Room not found",
+      icon: "warning",
+    }).then(async (result) => {
+      if (result.isDismissed || result.isConfirmed) {
+        console.log("Dissmised NO ROOM FOUND");
+        this.roomCheck.next(true);
+      }
+    })
   }
 
 
@@ -124,8 +142,8 @@ export class StreamComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate([""])
   }
 
-  connected() {
-    this.streaming.startPeerJS("123");
+  connected(uuid?:string) {
+    this.streaming.startPeerJS(uuid);
 
     // this.focusedVideoElement.nativeElement.srcObject = this.streaming.myVideoMediaStream;
     console.log("Dsadasdsadsadsadasd");
@@ -185,5 +203,33 @@ export class StreamComponent implements OnInit, AfterViewInit, OnDestroy {
     }, (err) => {
       console.log(err)
     })
+  }
+
+  switchButtonColoring(color: string): string {
+    if (color == "warn") {
+      return "cool"
+    }
+    return "warn"
+  }
+
+  buttonStateColor(keyCode: ButtonType) {
+    switch (keyCode) {
+      case ButtonType.CAMERA:
+        console.log(`Call Button Camera`);
+        this.iconColor[ButtonType.CAMERA] = this.switchButtonColoring(this.iconColor[ButtonType.CAMERA]);
+        if (this.iconColor[ButtonType.CAMERA] == "warn") {
+          this.streaming.myVideoMediaStream.getVideoTracks()[0].enabled = false;
+        }else{
+          // Poorrly implementation
+            this.streaming.myVideoMediaStream.getVideoTracks()[0].enabled = true;
+        }
+        break;
+      case ButtonType.MICROPHONE:
+        console.log(`Call Button MICROPHONE`);
+        this.iconColor[ButtonType.MICROPHONE] = this.switchButtonColoring(this.iconColor[ButtonType.MICROPHONE]);
+        break;
+      default:
+        break;
+    }
   }
 }

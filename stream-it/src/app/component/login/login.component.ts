@@ -71,14 +71,16 @@ export class LoginComponent implements OnInit {
     dialogRef.afterClosed().subscribe( async (result)=>{
       if (result != null) {
         console.log(result);
-        this.signupwithEmailPass(result.email,result.password).then(()=>{
+        let displayname = `${result.lastName} ${result.firstName}`
+        // {firstName: "duy", lastName: "dep", email: "wechicken111@gmail.com", password: "1234567890", confirmPassword: "1234567890"}
+        this.signupwithEmailPass(result.email,result.password,displayname).then(()=>{
           Swal.fire({
             icon:"success",
             text:`Sign up when successfully`
           })
         },(reject)=>{
           console.log(reject)
-          Swal.fire("Cannot Register user");
+          Swal.fire("Cannot Register user 500");
         })
       }else{
         console.log("click out side");
@@ -88,8 +90,8 @@ export class LoginComponent implements OnInit {
 
 
 
-  async signupwithEmailPass(email:string,password:string){
-    await this.authService.signUpwithEmailPass(email,password)
+  async signupwithEmailPass(email:string,password:string,username:string){
+    await this.authService.signUpwithEmailPass(email,password,username)
   }
 
 

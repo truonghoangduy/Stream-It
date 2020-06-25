@@ -35,7 +35,12 @@
             </button>
         </mat-drawer>
         <mat-drawer-content class="mainContainer">
-            <div [ngSwitch]="roomVeiwMode">
+            <div *ngIf="this.streaming.screenCapture !=null">
+                <video autoplay="true" [srcObject]="this.streaming.screenCapture" style="  border: 1px solid #999;
+  width: 98%;
+  max-width: 860px;"></video>
+            </div>
+            <div [ngSwitch]="RoomViewMode">
                 <div *ngSwitchCase="RoomViewMode.FOCUS">
 
                 </div>
@@ -57,14 +62,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
                 </div>
             </div>
 
@@ -72,20 +69,40 @@
         </mat-drawer-content>
     </mat-drawer-container>
     <mat-card class="bottomCard">
-        <div fxLayout="row" fxLayoutAlign="center center">
+        <div fxLayout="row" fxLayoutAlign="center center" class="mediaControllerButton">
+            <button (click)="this.openRoomDetailDialog()" mat-raised-button class="detailButton">Room
+                Detail</button>
+            <div class="mainMediaButton">
+                <button mat-fab [color]="this.iconColor[ButtonType.CAMERA]"
+                    (click)="this.buttonStateColor(ButtonType.CAMERA)" style="margin-right: 1vw;">
+                    <mat-icon>
+                        videocam_off
+                    </mat-icon>
+                </button>
 
-            <button mat-button (click)="connected()">START PEER ID</button>
-            <!-- <button mat-button (click)="getUserMedia()">GET MEDIA</button> -->
+                <button mat-fab color="warn">
+                    <mat-icon>call_end</mat-icon>
+                </button>
+                <button mat-fab [color]="this.iconColor[ButtonType.MICROPHONE]"
+                    (click)="this.buttonStateColor(ButtonType.MICROPHONE)" style="margin-left: 1vw;">
+                    <mat-icon>volume_off</mat-icon>
+                </button>
+            </div>
+            <!-- <button mat-fab color="iconColor[0]" (click)="connected()"><mat-icon> -->
 
-            <button mat-fab color="warn">
-                <mat-icon>call_end</mat-icon>
+
+
+
+            <button (click)="this.connected('1')" mat-raised-button class="prestationButton">
+                <mat-icon>present_to_all</mat-icon> Presentation
             </button>
 
-            <button (click)="this.openRoomDetailDialog()" mat-raised-button style="position: absolute;left: 2vw;">Room
-                Detail</button>
+            <!-- <button mat-fab color="iconColor[1]" (click)="this.streaming.invokegetUserMedia()"> -->
 
-            <button mat-raised-button (click)="this.streaming.invokegetUserMedia()"> TEST CAMERA </button>
         </div>
+
+        <!-- Debug Button -->
+        <!-- <button mat-button (click)="getUserMedia()">GET MEDIA</button> -->
         <!-- <input [(ngModel)]="peerid" placeholder="setYour ID">
         <input [(ngModel)]="otherpeerid" placeholder="Connect to Peer"> -->
         <!-- <button mat-button (click)="startPeerJS()">Start</button> -->

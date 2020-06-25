@@ -16,7 +16,7 @@ video {
 }
 .siderLeft{
   min-width: 20vw;
-  max-width: 25vw;
+  // max-width: 30vw;
   // width: 30vw;
 }
 .streamContainer{
@@ -59,3 +59,17 @@ video {
     // background-color:royalblue;
     border: 1px solid #fff;
   }
+
+.mediaControllerButton{
+  justify-content: space-between !important;
+}
+.detailButton{
+  // position: absolute;
+  // left: 2vw;
+}
+
+.prestationButton{
+  margin-right: 4vw;
+  // position: absolute;
+  // left: 85vw;
+}
