@@ -35,6 +35,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatSelectModule} from '@angular/material/select';
 import {MatListModule} from '@angular/material/list';
 import { RoomInfoDialogComponent } from './dialog/room-info-dialog/room-info-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -60,6 +61,7 @@ import { RoomInfoDialogComponent } from './dialog/room-info-dialog/room-info-dia
     MatIconModule,
     MatMenuModule,
     MatCardModule,
+    HttpClientModule,
     MatButtonModule,
     MatRippleModule,
     MatInputModule,

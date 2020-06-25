@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as app from 'firebase';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(public auth:AngularFireAuth,private afs:AngularFirestore) { }
+  url = "http://localhost:8080/"
+  constructor(
+    private http:HttpClient,
+    public auth:AngularFireAuth,private afs:AngularFirestore) { }
 
   user:any;
   async pushUserInfoToFS(){
@@ -25,10 +29,17 @@ export class LoginService {
     this.auth.signOut();
   }
 
-  async signUpwithEmailPass(email:string,password:string ){
-    let userWithEmailPass = await this.auth.createUserWithEmailAndPassword(email,password);
-    this.user = userWithEmailPass;
-    console.log(`Create ${userWithEmailPass.user.email} with Email and Pass`)
+  async signUpwithEmailPass(email:string,password:string,username:string ){
+    // let userWithEmailPass = await this.auth.createUserWithEmailAndPassword(email,password);
+    // this.user = userWithEmailPass;
+    // console.log(`Create ${userWithEmailPass.user.email} with Email and Pass`)
+    let user = await this.http.post(`${this.url}signup`,{
+      'email':email,
+      'password':password,
+      'displayName':username
+    }).toPromise()
+    console.log(user);
+
   }
   async sighInwithEmailPass(email:string,password:string ){
     console.log(`in side auth ${email} : ${password}`)
