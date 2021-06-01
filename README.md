@@ -5,7 +5,7 @@ Stream-it is an idea of videoconferencing
 ### V0.0.1
 P2P Full Mesh Call
 <p align="center">
-<img src="./docs/imgs/topology/202011-webrtc-mesh-architecture.png" style="width:50%">
+<img src="./docs/imgs/topology/202011-webrtc-mesh-architecture.png" style="width:35%">
 </p>
 
 Techical Stack
