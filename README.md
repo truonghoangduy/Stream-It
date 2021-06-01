@@ -1,6 +1,6 @@
 # Stream-it
 ## Introduction
-Stream-it is an idea of videoconferencing 
+Stream-it is an idea of videoconferencing - hobbies project maybe one day lane me a job 💁🏻‍♂️
 ## Project Revision
 ### V0.0.1
 P2P Full Mesh Call
